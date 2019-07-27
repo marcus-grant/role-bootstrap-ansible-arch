@@ -23,8 +23,11 @@ def test_aur_builder_user_is_wheel(host):
 def test_curl_installed(host):
     assert host.run('curl --version').rc == 0
 
-def test_curl_installed(host):
+def test_wget_installed(host):
     assert host.run('wget --version').rc == 0
+
+def test_git_installed(host):
+    assert host.run('git --version').rc == 0
 
 # def test_aur_ansible_module_installed(host):
 #     f = host.file('~/.ansible/plugins/modules/aur')

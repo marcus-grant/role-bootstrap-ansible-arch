@@ -21,3 +21,9 @@
   package:
     name: wget
     state: present
+
+- name: git is present
+  become: true
+  package:
+    name: git
+    state: present

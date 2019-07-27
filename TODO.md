@@ -4,8 +4,6 @@ To-Do's
 In-Progress
 -----------
 
-- [ ] Install git
-- [ ] Install wget
 - [ ] Install aur_builder ansible module to local ansible configs to make dealing with arch remotes easier
 
 
@@ -24,6 +22,8 @@ Future
 Completed
 ---------
 
+- [x] Install git
+- [x] Install wget
 - [x] Install curl
 - [x] `aur_builder` user task for getting around the non-root requirement for using AUR packages
 - [x] Set molecule platform to `archlinux/archlinux`
