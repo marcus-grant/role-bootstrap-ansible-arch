@@ -11,6 +11,13 @@
     group: wheel
 
 - name: curl is present
+  become: true
   package:
     name: curl
+    state: present
+
+- name: wget is present
+  become: true
+  package:
+    name: wget
     state: present
