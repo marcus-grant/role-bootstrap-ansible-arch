@@ -1,4 +1,5 @@
 import os
+import pytest
 
 import testinfra.utils.ansible_runner
 
@@ -13,22 +14,38 @@ def test_hosts_file(host):
     assert f.user == 'root'
     assert f.group == 'root'
 
+
 def test_python_present(host):
     assert host.run('test -e /usr/bin/python').rc == 0
+
 
 def test_aur_builder_user_is_wheel(host):
     aur_user = host.user('aur_builder')
     assert 'wheel' in aur_user.groups
 
-def test_curl_installed(host):
-    assert host.run('curl --version').rc == 0
 
-def test_wget_installed(host):
-    assert host.run('wget --version').rc == 0
+def test_aur_builder_sudo_access_pacman(host):
+    sudo_file_path = '/etc/sudoers.d/11-install-aur_builder'
+    visudo_check_cmd = 'visudo -cf ' + sudo_file_path
+    with host.sudo():
+        sudo_file = host.file(sudo_file_path)
+        validation_cmd = host.run(visudo_check_cmd)
+        assert sudo_file.user == 'root'
+        assert validation_cmd.rc == 0
+        assert 'OK' in validation_cmd.stdout
+        assert sudo_file_path in validation_cmd.stdout
 
-def test_git_installed(host):
-    assert host.run('git --version').rc == 0
+
+@pytest.mark.parametrize('cmd,rc',[
+    ('curl --version', 0),
+    ('wget --version', 0),
+    ('git --version', 0),
+])
+def test_bootstrap_apps_run(host, cmd, rc):
+    assert host.run(cmd).rc == rc
+
 
 # def test_aur_ansible_module_installed(host):
 #     f = host.file('~/.ansible/plugins/modules/aur')
 #     assert f.exists
+#     assert f.is_directory

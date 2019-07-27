@@ -11,6 +11,7 @@ Planning
 --------
 
 - [ ] Install aur helper
+- [ ] Add enabler variable that specifies if aur is to be used at all
 - [ ] Fill in the meta document with all the expected ansible role info
 
 Future
@@ -22,6 +23,7 @@ Future
 Completed
 ---------
 
+- [x] Give `aur_builder` user sudoers access only to pacman to update aur packages
 - [x] Install git
 - [x] Install wget
 - [x] Install curl
