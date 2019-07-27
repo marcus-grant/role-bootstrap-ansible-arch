@@ -1,2 +1,3 @@
 ---
 # defaults file for bootstrap-ansible-arch
+arch_bootstrap_upgrade_pkgs: false

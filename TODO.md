@@ -4,6 +4,7 @@ To-Do's
 In-Progress
 -----------
 
+- [ ] Install base arch packages to use `makepkg`
 - [ ] Install an aur helper, default to `yay`
 
 
@@ -23,6 +24,7 @@ Future
 Completed
 ---------
 
+- [x] Upgrade packages task with false default var as condition to do it
 - [x] Install aur helper
 - [x] Install aur_builder ansible module to local ansible configs to make dealing with arch remotes easier
 - [x] Give `aur_builder` user sudoers access only to pacman to update aur packages
