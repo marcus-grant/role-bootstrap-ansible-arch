@@ -11,6 +11,26 @@
     update_cache: true
     upgrade: true
 
+- name: important ansible utils (curl,wget,git) are present
+  become: true
+  package:
+    name:
+      - curl
+      - wget
+      - git
+    state: present
+
+- name: setup system for AUR
+  block:
+  - name: makepkg dependencies installed
+    become: true
+    package:
+      name:
+        - binutils
+        - make
+        - gcc
+        - fakeroot
+
 - name: aur_builder user used for aur packagers present
   become: true
   user:
@@ -25,17 +45,9 @@
     create: true
     validate: 'visudo -cf %s'
 
-- name: important ansible utils (curl,wget,git) are present
-  become: true
-  package:
-    name:
-      - curl
-      - wget
-      - git
-    state: present
-
 - name: clone aur helper package
   git:
     repo: 'https://github.com/kewlfft/ansible-aur.git'
     dest: '{{ ansible_env.HOME }}/.ansible/plugins/modules/aur'
     version: 'v0.23'
+  when: arch_bootstrap_aur_enabled

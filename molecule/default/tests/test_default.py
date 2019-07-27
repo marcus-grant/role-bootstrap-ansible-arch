@@ -49,3 +49,10 @@ def test_aur_ansible_module_installed(host):
     aur_path = host.user().home + '/.ansible/plugins/modules/aur/aur.py'
     assert host.file(aur_path).exists
     assert host.file(aur_path).is_file
+
+
+@pytest.mark.parametrize('pkg', ['binutils', 'make', 'gcc', 'fakeroot'])
+def test_makepkg_dependencies_present(host, pkg):
+    assert host.package(pkg).is_installed
+    
+
