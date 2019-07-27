@@ -45,9 +45,10 @@
     create: true
     validate: 'visudo -cf %s'
 
-- name: clone aur helper package
+  - name: clone aur builder ansible module
   git:
     repo: 'https://github.com/kewlfft/ansible-aur.git'
     dest: '{{ ansible_env.HOME }}/.ansible/plugins/modules/aur'
     version: 'v0.23'
+  - include: 'install_yay.yml'
   when: arch_bootstrap_aur_enabled

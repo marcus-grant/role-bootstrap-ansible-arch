@@ -4,7 +4,9 @@ To-Do's
 In-Progress
 -----------
 
-- [ ] Install an aur helper, default to `yay`
+- [ ] Fix the aur module install should go to ~/.ansible/plugins/modules/aur.py
+- [ ] Add conditions that check for aur helper install to skip those tasks
+- [ ] Add condition with default var that checks if it should install the aur ansible module
 
 
 Planning
@@ -18,11 +20,12 @@ Future
 ------
 
 - [ ] Figure out if there's a way to put the `raw` ssh command to install python into the role itself
-- [ ] Add other AUR helpers support, for now it's just `yay`
+- [ ] Add other AUR helpers support, for now it's just `yay` & 'makepkg'
 
 Completed
 ---------
 
+- [x] Install an aur helper, default to `yay`
 - [x] Install base arch packages to use `makepkg`
 - [x] Upgrade packages task with false default var as condition to do it
 - [x] Install aur helper

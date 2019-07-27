@@ -2,3 +2,4 @@
 # defaults file for bootstrap-ansible-arch
 arch_bootstrap_upgrade_pkgs: false
 arch_bootstrap_aur_enabled: true
+aur_helper: yay

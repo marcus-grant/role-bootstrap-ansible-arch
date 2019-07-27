@@ -1,0 +1,34 @@
+---
+- name: clone yay aur helper package
+  git:
+    repo: 'https://aur.archlinux.org/yay.git'
+    dest: '/tmp/yay'
+    version: 'master'
+
+- name: makepkg aur helper
+  shell: 'makepkg -si --noconfirm'
+  args:
+    chdir: '/tmp/yay'
+
+# - name: test aur by installing gist-git
+#   become: true
+#   become_user: 'aur_builder'
+#   aur:
+#     name: 'gist-git'
+#     skip_installed: true
+
+
+# - name: makepkg aur helper
+#   aur: 
+#     name: '{{ arch_bootstrap_aur_helper }}'
+#     use: 'makepkg'
+#     skip_installed: true
+#   become: yes
+#   become_user: aur_builder
+
+  # - name: clone yay aur helper package
+  #   git:
+  #     repo: 'https://aur.archlinux.org/yay.git'
+  #     dest: '/tmp/yay'
+  #     version: 'master'
+  
