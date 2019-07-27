@@ -1,5 +1,7 @@
 ---
 # defaults file for bootstrap-ansible-arch
-arch_bootstrap_upgrade_pkgs: false
-arch_bootstrap_aur_enabled: true
 aur_helper: yay
+aur_use_helper: true
+arch_bootstrap_upgrade_pkgs: false
+arch_bootstrap_install_ansible_aur_mod: true
+arch_bootstrap_aur_mod_ver: v0.23

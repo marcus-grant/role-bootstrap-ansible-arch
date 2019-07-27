@@ -1,9 +1,5 @@
 ---
 # tasks file for bootstrap-ansible-arch
-# - name: ensure python is present
-#   raw: test -e /usr/bin/python || (pacman --noconfirm -S python)
-#   become: true
-#   changed_when: false
 - name: upgrade packages & package cache
   when: arch_bootstrap_upgrade_pkgs
   become: true
@@ -22,33 +18,36 @@
 
 - name: setup system for AUR
   block:
-  - name: makepkg dependencies installed
-    become: true
-    package:
-      name:
-        - binutils
-        - make
-        - gcc
-        - fakeroot
+    - name: makepkg dependencies installed
+      become: true
+      package:
+        name:
+          - binutils
+          - make
+          - gcc
+          - fakeroot
 
-- name: aur_builder user used for aur packagers present
-  become: true
-  user:
-    name: aur_builder
-    group: wheel
+    - name: aur_builder user used for aur packagers present
+      become: true
+      user:
+        name: aur_builder
+        group: wheel
 
-- name: aur_builder sudo access to pacman
-  become: true
-  lineinfile:
-    path: /etc/sudoers.d/11-install-aur_builder
-    line: 'aur_builder ALL=(ALL) NOPASSWD: /usr/bin/pacman'
-    create: true
-    validate: 'visudo -cf %s'
+    - name: aur_builder sudo access to pacman
+      become: true
+      lineinfile:
+        path: /etc/sudoers.d/11-install-aur_builder
+        line: 'aur_builder ALL=(ALL) NOPASSWD: /usr/bin/pacman'
+        create: true
+        validate: 'visudo -cf %s'
+  when: aur_use_helper
 
-  - name: clone aur builder ansible module
+- include: 'install_yay.yml'
+  when: aur_use_helper
+
+- name: clone aur builder ansible module
+  when: arch_bootstrap_install_ansible_aur_mod
   git:
     repo: 'https://github.com/kewlfft/ansible-aur.git'
     dest: '{{ ansible_env.HOME }}/.ansible/plugins/modules/aur'
-    version: 'v0.23'
-  - include: 'install_yay.yml'
-  when: arch_bootstrap_aur_enabled
+    version: '{{ arch_bootstrap_aur_mod_ver }}'

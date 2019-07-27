@@ -54,7 +54,7 @@ def test_aur_ansible_module_installed(host):
 @pytest.mark.parametrize('pkg', ['binutils', 'make', 'gcc', 'fakeroot'])
 def test_makepkg_dependencies_present(host, pkg):
     assert host.package(pkg).is_installed
-    
+
 
 def test_aur_helper_yay_runs(host):
     test_cmd = host.run('yay --version')
