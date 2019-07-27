@@ -3,6 +3,8 @@ Role Name
 
 A relatively simple ansible role that installs all the most important packages using `pacman` module to make arch ready to be controlled by an ansible machine either locally or remotely.
 
+Check the `TODO.md` file in the repository to get an idea of what has been finished and what is planned. I'll respond to issues and pull requests as well.
+
 Requirements
 ------------
 
@@ -26,13 +28,21 @@ Otherwise really the only requirement is the ability for ansible to connect, i.e
 Role Variables
 --------------
 
-### TODO
-
-A description of the settable variables for this role should go here, including
-any variables that are in defaults/main.yml, vars/main.yml, and any variables
-that can/should be set via parameters to the role. Any variables that are read
-from other roles and/or the global scope (ie. hostvars, group vars, etc.) should
-be mentioned here as well.
+* `arch_bootstrap_upgrade_pkgs`
+  * default: `false`
+  * whether this role should start by upgrading all pacman packages and its package cache
+* `aur_use_helper`
+  * default: `true`
+  * if the remote should enable an AUR helper to install AUR packages
+* `aur_helper`
+  * default: `yay`
+  * the AUR helper to install and use
+* `arch_bootstrap_install_ansible_aur_mod`
+  * default: `true`
+  * will or won't install the [ansible-aur][01] ansible module
+* `arch_bootstrap_aur_mod_ver`
+  * default: `v0.23`
+  * the default git version tag to checkout of the [ansible-aur][01] module
 
 Dependencies
 ------------
@@ -42,14 +52,22 @@ Dependencies
 Example Playbook
 ----------------
 
-### TODO
+### Note
 
-Including an example of how to use your role (for instance, with variables
-passed in as parameters) is always nice for users too:
+* This must be used on an arch-based distribution, *i.e. one that uses pacman as its package manager*
+  * Arch, Antergos, Manjaro are all valid examples
+* Because AUR needs to be run by a **non-root** user, this role creates a user `aur_builder`
+  * Anytime you use the `aur` module you must use the `become_user: aur_builder` property
+* **NOTE** `yay` is the only helper implemented so far, if people ask for an implementation of installing another AUR helper, I'll probably do it.
+* I'll also definitely accept pull requests
+* Arch can get sketchy when package upgrades are done, try to only use the `arch_bootstrap_upgrade_pkgs` variable on relatively fresh systems
+* Remember that installing the ansible aur module will only work on an arch machine
 
-    - hosts: servers
-      roles:
-         - { role: bootstrap-ansible-arch, x: 42 }
+```yaml
+- hosts: machines
+  roles:
+    - { role: bootstrap-ansible-arch, arch_bootstrap_upgrade_pkgs: true }
+```
 
 License
 -------
@@ -61,3 +79,5 @@ Author Information
 
 - Marcus Grant
 - marcusfg@gmail.com
+
+[01]: https://github.com/kewlfft/ansible-aur "Ansible AUR Module"

@@ -4,8 +4,6 @@ To-Do's
 In-Progress
 -----------
 
-- [ ] Fill in the meta document with all the expected ansible role info
-
 
 Planning
 --------
@@ -21,6 +19,7 @@ Future
 Completed
 ---------
 
+- [x] Fill in the meta document with all the expected ansible role info
 - [x] Add variable that specifies which aur module to install
 - [x] Add condition for default var checking if should install aur ansible module
 - [x] Add conditions that check for aur helper install to skip those tasks
