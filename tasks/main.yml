@@ -27,4 +27,8 @@
       - git
     state: present
 
-# - name: clone aur helper package
+- name: clone aur helper package
+  git:
+    repo: 'https://github.com/kewlfft/ansible-aur.git'
+    dest: '{{ ansible_env.HOME }}/.ansible/plugins/modules/aur'
+    version: 'v0.23'

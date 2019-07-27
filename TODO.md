@@ -4,13 +4,13 @@ To-Do's
 In-Progress
 -----------
 
-- [ ] Install aur_builder ansible module to local ansible configs to make dealing with arch remotes easier
+- [ ] Install an aur helper, default to `yay`
 
 
 Planning
 --------
 
-- [ ] Install aur helper
+- [ ] Add variable that specifies which aur module to install
 - [ ] Add enabler variable that specifies if aur is to be used at all
 - [ ] Fill in the meta document with all the expected ansible role info
 
@@ -23,6 +23,8 @@ Future
 Completed
 ---------
 
+- [x] Install aur helper
+- [x] Install aur_builder ansible module to local ansible configs to make dealing with arch remotes easier
 - [x] Give `aur_builder` user sudoers access only to pacman to update aur packages
 - [x] Install git
 - [x] Install wget

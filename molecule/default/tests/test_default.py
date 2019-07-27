@@ -36,7 +36,7 @@ def test_aur_builder_sudo_access_pacman(host):
         assert sudo_file_path in validation_cmd.stdout
 
 
-@pytest.mark.parametrize('cmd,rc',[
+@pytest.mark.parametrize('cmd,rc', [
     ('curl --version', 0),
     ('wget --version', 0),
     ('git --version', 0),
@@ -45,7 +45,7 @@ def test_bootstrap_apps_run(host, cmd, rc):
     assert host.run(cmd).rc == rc
 
 
-# def test_aur_ansible_module_installed(host):
-#     f = host.file('~/.ansible/plugins/modules/aur')
-#     assert f.exists
-#     assert f.is_directory
+def test_aur_ansible_module_installed(host):
+    aur_path = host.user().home + '/.ansible/plugins/modules/aur/aur.py'
+    assert host.file(aur_path).exists
+    assert host.file(aur_path).is_file
