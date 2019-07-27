@@ -1,2 +1,16 @@
 ---
 # tasks file for bootstrap-ansible-arch
+# - name: ensure python is present
+#   raw: test -e /usr/bin/python || (pacman --noconfirm -S python)
+#   become: true
+#   changed_when: false
+- name: aur_builder user used for aur packagers present
+  become: true
+  user:
+    name: aur_builder
+    group: wheel
+
+- name: curl is present
+  package:
+    name: curl
+    state: present

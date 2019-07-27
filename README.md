@@ -6,7 +6,22 @@ A relatively simple ansible role that installs all the most important packages u
 Requirements
 ------------
 
-Really the only requirement is the ability for ansible to connect, i.e. an SSH connection with the right credentials if they're needed, or to be able to run it locally.
+There is one; a role can't specify host-specific properties like `hosts`, which is needed to interact with its ssh subsystem directly. That must be done through a play. So in any play where this role is run, the below and failry standard `raw` module task should be used if there's a chance python might not be installed:
+
+```yaml
+- name: Bootstrap python for ansible on arch-based systems
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Install python for Ansible
+      raw: test -e /usr/bin/python || (pacman --noconfirm -S python)
+      become: true
+      changed_when: false
+```
+
+You'll note in the `molecule` testing folder that `prepare.yml` does the same thing to prepare the vagrant instance for testing. I haven't found a way around this yet, would love suggestions that encapsulates this into a role and simplifies things.
+
+Otherwise really the only requirement is the ability for ansible to connect, i.e. an SSH connection with the right credentials if they're needed, or to be able to run it locally.
 
 Role Variables
 --------------
